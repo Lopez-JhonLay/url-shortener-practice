@@ -1,15 +1,81 @@
-<div class="bg-slate-50 w-full min-w-fit p-8 flex flex-col -mt-16 rounded-md">
-  <h1 class="text-2xl font-semibold text-center mb-6">Link Shortener</h1>
-  <label class="text-lg">Enter your Link:</label>
-  <input type="text" class="w-96 p-2 border border-slate-400 rounded-md mb-6" [(ngModel)]="userInput">
-  <button class="w-96 bg-blue-500 p-2 text-white rounded-md" (click)="shortenUrl()">Shorten URL</button>
-  @if (showResult) {
-  <div class="flex flex-col mt-6">
-    <p>Your Shorten Link:</p>
-    <a id="text-to-copy" href="{{ shortenLink }}" target="_blank">{{ shortenLink }}</a>
-    <button id="btn_copy" class="w-96 bg-green-500 p-2 text-white rounded-md" [attr.data-clipboard-target]="'#text-to-copy'">
-      Copy to Clipboard
-    </button>
+<main class="relative min-h-screen w-full overflow-hidden bg-slate-950 px-4 py-10 text-slate-100 sm:px-6 lg:px-8">
+  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -left-24 top-0 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl"></div>
+    <div class="absolute -right-20 top-32 h-80 w-80 rounded-full bg-violet-500/20 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"></div>
   </div>
-  }
-</div>
+
+  <section class="relative mx-auto flex min-h-[calc(100vh-5rem)] max-w-5xl items-center justify-center">
+    <div class="grid w-full gap-8 rounded-[2rem] border border-white/10 bg-white/[0.08] p-6 shadow-2xl shadow-slate-950/40 backdrop-blur-xl md:grid-cols-[0.9fr_1.1fr] md:p-8 lg:p-10">
+      <div class="flex flex-col justify-between gap-8 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-600 p-8 text-white shadow-xl shadow-blue-950/30">
+        <div>
+          <span class="inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-50">
+            Fast links
+          </span>
+          <h1 class="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+            Shorten URLs with style.
+          </h1>
+          <p class="mt-5 text-base leading-7 text-cyan-50/90">
+            Paste a long URL and turn it into a polished, shareable Bitly link in seconds.
+          </p>
+        </div>
+
+        <div class="grid gap-3 text-sm text-cyan-50/90">
+          <div class="flex items-center gap-3 rounded-2xl bg-white/15 p-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/20">↗</span>
+            <span>Clean links for campaigns, messages, and profiles.</span>
+          </div>
+          <div class="flex items-center gap-3 rounded-2xl bg-white/15 p-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-white/20">⌘</span>
+            <span>One-click copy keeps your workflow moving.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-3xl bg-white p-6 text-slate-900 shadow-xl sm:p-8">
+        <div class="mb-8">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">URL Shortener</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-slate-950">Create a short link</h2>
+          <p class="mt-3 text-slate-500">Enter the destination URL below and get a compact link ready to share.</p>
+        </div>
+
+        <label for="long-url" class="text-sm font-semibold text-slate-700">Destination URL</label>
+        <div class="mt-2 flex flex-col gap-3 sm:flex-row">
+          <input
+            id="long-url"
+            type="url"
+            class="min-h-14 flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 text-base text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
+            placeholder="https://example.com/your-long-link"
+            [(ngModel)]="userInput"
+          >
+          <button
+            class="min-h-14 rounded-2xl bg-slate-950 px-6 font-bold text-white shadow-lg shadow-slate-900/20 transition hover:-translate-y-0.5 hover:bg-blue-600 hover:shadow-blue-600/25 focus:outline-none focus:ring-4 focus:ring-blue-100"
+            (click)="shortenUrl()"
+          >
+            Shorten
+          </button>
+        </div>
+
+        @if (showResult) {
+          <div class="mt-8 rounded-3xl border border-blue-100 bg-blue-50/80 p-5">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">Your short link</p>
+            <a
+              id="text-to-copy"
+              class="mt-3 block break-all text-lg font-bold text-slate-950 underline decoration-blue-300 decoration-2 underline-offset-4 transition hover:text-blue-700"
+              href="{{ shortenLink }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ shortenLink }}</a>
+            <button
+              id="btn_copy"
+              class="mt-5 w-full rounded-2xl bg-blue-600 px-5 py-3 font-bold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-100"
+              [attr.data-clipboard-target]="'#text-to-copy'"
+            >
+              Copy to clipboard
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</main>
